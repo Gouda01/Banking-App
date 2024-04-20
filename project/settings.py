@@ -136,16 +136,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'userauths.User'
+
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     # "site_title": "Library Admin",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Library",
+    "site_header": "BankPay",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Library",
+    "site_brand": "Payment made easy",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     # "site_logo": "books/img/logo.png",
@@ -154,10 +156,10 @@ JAZZMIN_SETTINGS = {
     # "login_logo": None,
 
     # Copyright on the footer
-    "copyright": "Acme Library Ltd",
+    "copyright": "Acme BankPay Ltd",
 
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
+    # "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
     
 }
