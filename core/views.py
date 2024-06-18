@@ -3,5 +3,5 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def burito(request):
+def index(request):
     return render(request,'core/index.html')
