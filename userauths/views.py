@@ -22,6 +22,11 @@ def RegisterView (request):
             
             login(request, new_user)
             return redirect ("core:index")
+    
+    if request.user.is_authenticated:
+        messages.warning(request, "You are already Logged in.")
+        return redirect ("core:index")
+    
     else:
         form = UserRegisterForm()
 
