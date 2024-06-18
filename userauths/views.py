@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 
 from .models import User
 from .forms import UserRegisterForm
@@ -7,8 +8,13 @@ from .forms import UserRegisterForm
 # Create your views here.
 
 def RegisterView (request):
-    
-    form = UserRegisterForm()
+    if request.method=="POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserRegisterForm()
+
     context = {
         'form': form
     }
