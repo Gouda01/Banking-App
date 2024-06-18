@@ -37,7 +37,31 @@ def RegisterView (request):
 
 
 def LoginView(request):
-    pass
+    
+    if request.user.is_authenticated:
+        messages.warning(request, "You are already Logged in.")
+        return redirect ("core:index")
+    else :
+        if request.method == "POST":
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+
+            try:
+                user = User.objects.get(email=email)
+                user = authenticate(request, email=email, password=password)
+
+                if user is not None :
+                    login(request, user)
+                    messages.success(request, "You are Logged.")
+                    return redirect("core:index")
+                else :
+                    messages.warning(request, "Username or Password does not exits.")
+                    return redirect("userauths:sign-in")
+
+            except:
+                messages.warning(request, "User does not exits.")
+
+        return render(request,'userauths/sign-in.html')
 
 def LogoutView(request):
     logout(request)
