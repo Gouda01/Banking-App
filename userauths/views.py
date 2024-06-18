@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from .models import User
@@ -34,3 +34,13 @@ def RegisterView (request):
         'form': form
     }
     return render(request, 'userauths/sign-up.html', context)
+
+
+def LoginView(request):
+    pass
+
+def LogoutView(request):
+    logout(request)
+    messages.success(request, "You have been logged out.")
+    # return redirect("userauth:sign-in")
+    return redirect("core:index")
