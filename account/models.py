@@ -91,7 +91,7 @@ class KYC(models.Model):
     city = models.CharField(max_length=100)
 
     #Contact Details :
-    mobile = models.CharField(max_length=1000)
+    mobile = models.CharField(max_length=100)
     fax = models.CharField(max_length=100)
     date = models.DateTimeField(auto_now_add=True)
 
