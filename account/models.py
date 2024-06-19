@@ -82,12 +82,13 @@ class KYC(models.Model):
     marrital_status = models.CharField(choices=MARITAL_STATUS, max_length=40)
     gender = models.CharField(choices=GENDER, max_length=40)
     identity_type = models.CharField(choices=IDENTY_TYPE, max_length=140)
+    identity_image = models.ImageField(upload_to="kyc", null=True, blank=True)
     date_of_birth = models.DateField(auto_now_add=False)
     signature = models.ImageField(upload_to="kyc")
 
     #Address :
     country = models.CharField(max_length=100)
-    stat = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
 
     #Contact Details :
