@@ -17,3 +17,4 @@ class KYCAdmin(ImportExportModelAdmin):
 
 admin.site.register(Account,AccountAdminModel)
 admin.site.register(KYC,KYCAdmin)
+
