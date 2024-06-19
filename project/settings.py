@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     
-    # My Apps :
+    # My Packages :
     'jazzmin',
     
     'django.contrib.admin',
@@ -42,11 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # My Packages :
+    'import_export',
     
     
     # My Apps :
     'core',
     'userauths',
+    'account',
 ]
 
 MIDDLEWARE = [
