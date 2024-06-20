@@ -114,6 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -124,6 +125,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
+LOGIN_URL = "userauths:sign-in"
+LOGOUT_REDIRECT_URL = "userauths:sign-in"
 
 
 # Static files (CSS, JavaScript, Images)

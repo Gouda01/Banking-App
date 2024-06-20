@@ -241,10 +241,14 @@
         </div>
 
         <!-- Alert Start -->
-        <div class="alert alert-success">
-            <strong>Successfull.</strong>
-        </div>
-        <!-- Alert End -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <strong>{{ message }}.</strong>
+                </div>
+            {% endfor %}                          
+        {% endif %}
+    <!-- Alert End -->
     </header>
     <!-- header-section end -->
 
