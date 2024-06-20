@@ -11,6 +11,7 @@ from userauths.models import User
 
 ACCOUNT_STATUS = {
     ("active", "Active"),
+    ("pending", "Pending"),
     ("in-active", "In-active"),
 }
 

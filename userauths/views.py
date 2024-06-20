@@ -25,7 +25,7 @@ def RegisterView (request):
     
     if request.user.is_authenticated:
         messages.warning(request, "You are already Logged in.")
-        return redirect ("core:index")
+        return redirect ("account:account")
     
     else:
         form = UserRegisterForm()
@@ -40,7 +40,7 @@ def LoginView(request):
     
     if request.user.is_authenticated:
         messages.warning(request, "You are already Logged in.")
-        return redirect ("core:index")
+        return redirect ("account:account")
     else :
         if request.method == "POST":
             email = request.POST.get("email")
