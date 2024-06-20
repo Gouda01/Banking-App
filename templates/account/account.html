@@ -19,12 +19,12 @@
                                     <div class="name-area">
                                         <h6>{{ kyc.full_name|title }}</h6>
                                         
-                                        {% if kyc.account.account_status == 'in-active' %}
-                                            <p class="active-status text-danger">{{ kyc.account.account_status|title }}</p>
-                                        {% elif kyc.account.account_status == 'active' %}
-                                            <p class="active-status text-success">{{ kyc.account.account_status|title }}</p>
-                                        {% elif kyc.account.account_status == 'pending' %}
-                                            <p class="active-status text-warning">{{ kyc.account.account_status|title }}</p>
+                                        {% if account.account_status == 'in-active' %}
+                                            <p class="active-status text-danger">{{ account.account_status|title }}</p>
+                                        {% elif account.account_status == 'active' %}
+                                            <p class="active-status text-success">{{ account.account_status|title }}</p>
+                                        {% elif account.account_status == 'pending' %}
+                                            <p class="active-status text-warning">{{ account.account_status|title }}</p>
                                         {% endif %}
                                             
                                         
@@ -33,24 +33,31 @@
                                 <div class="owner-info">
                                     <ul>
                                         <li>
-                                            <p>Account ID:</p>
-                                            <span class="mdr">Rex49484</span>
+                                            <p>Account NO:</p>
+                                            <span class="mdr">{{ account.account_number }}</span>
+                                        </li>
+                                        <li>
+                                            <p>PIN NO:</p>
+                                            <span class="mdr">{{ account.pin_number }}</span>
                                         </li>
                                         <li>
                                             <p>Joined:</p>
-                                            <span class="mdr">Aug 25,2021</span>
+                                            <span class="mdr">{{ account.date|date:"d/m/Y" }}</span>
                                         </li>
-                                        <li>
-                                            <p>Confirm status:</p>
-                                            <span class="mdr">80%</span>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                                 <div class="owner-action">
-                                    <a href="javascript:void(0)">
-                                        <img src="{% static 'assets1/images/icon/logout.png' %}" alt="image">
-                                        Logout
-                                    </a>
+
+                                    
+                                    {% if request.user.is_authenticated %}
+                                        <a href="{% url 'userauths:sign-out' %}">
+                                            <img src="{% static 'assets1/images/icon/logout.png' %}" alt="image">
+                                            Logout
+                                        </a>
+                                    {% endif %}
+                                        
+                                    
                                     <a href="javascript:void(0)" class="delete">
                                         <img src="{% static 'assets1/images/icon/delete-2.png' %}" alt="image">
                                         Delete Account
@@ -79,11 +86,10 @@
                                         <div class="upload-avatar">
                                             <div class="avatar-left d-flex align-items-center">
                                                 <div class="profile-img">
-                                                    <img src="{% static 'assets1/images/owner-profile-2.png' %}" alt="image">
+                                                    <img src="{{ kyc.image.url }}" alt="image" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                                                 </div>
                                                 <div class="instraction">
-                                                    <h6>Your Avatar</h6>
-                                                    <p>Profile picture size: 400px x 400px</p>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="avatar-right">
@@ -101,80 +107,98 @@
                                             <div class="row justify-content-center">
                                                 <div class="col-md-6">
                                                     <div class="single-input">
-                                                        <label for="fName">First Name</label>
-                                                        <input type="text" id="fName" placeholder="Alfred">
+                                                        <label for="fName">Full Name</label>
+                                                        <input type="text" id="fName" placeholder="" value="{{ kyc.full_name }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="single-input">
-                                                        <label for="lName">Last Name</label>
-                                                        <input type="text" id="lName" placeholder="Davis">
+                                                        <label for="lName">Email</label>
+                                                        <input type="text" id="lName" placeholder="" value="{{ kyc.user.email }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                
+                                                
+                                                <div class="col-md-6">
                                                     <div class="single-input">
-                                                        <label for="email">Email</label>
-                                                        <div class="row input-status d-flex align-items-center">
-                                                            <div class="col-6">
-                                                                <input type="text" id="email" placeholder="alfred6598@gmail.com">
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <span class="pending">
-                                                                    <img src="{% static 'assets1/images/icon/pending.png' %}" alt="icon">
-                                                                    E-mail confirmation in pending
-                                                                </span>
-                                                            </div>
-                                                        </div>
+                                                        <label for="address">Gender</label>
+                                                        <input type="text" id="address" placeholder="" value="{{ kyc.gender|title }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+
+                                                <div class="col-md-6">
                                                     <div class="single-input">
-                                                        <label for="phone">Phone</label>
-                                                        <div class="row input-status d-flex align-items-center">
-                                                            <div class="col-6">
-                                                                <input type="text" id="phone" placeholder="(316) 555-0116">
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <span class="confirm">
-                                                                    <img src="{% static 'assets1/images/icon/confirm.png' %}" alt="icon">
-                                                                    Phone number confirm
-                                                                </span>
-                                                            </div>
-                                                        </div>
+                                                        <label for="address">Marrital</label>
+                                                        <input type="text" id="address" placeholder="" value="{{ kyc.marrital_status|title }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <div class="single-input file">
-                                                        <label>ID Confirmation documents</label>
-                                                        <div class="row input-status d-flex align-items-center">
-                                                            <div class="col-6">
-                                                                <div class="file-upload">
-                                                                    <div class="right-area">
-                                                                        <label class="file">
-                                                                            <input type="file">
-                                                                            <span class="file-custom"></span>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <span class="notconfirm">
-                                                                    <img src="{% static 'assets1/images/icon/not-confirm.png' %}" alt="icon">
-                                                                    Person not confirmed
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
+
+                                                <div class="col-md-4">
                                                     <div class="single-input">
-                                                        <label for="address">Address</label>
-                                                        <input type="text" id="address" placeholder="2972 Westheimer Rd. Santa Ana, Illinois 85486">
+                                                        <label for="address">Date of Birth</label>
+                                                        <input type="text" id="address" placeholder="" value="{{ kyc.date_of_birth|date:"d/m/Y" }}">
                                                     </div>
                                                 </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="single-input">
+                                                        <label for="address">Mobile</label>
+                                                        <input type="text" id="address" placeholder="" value="{{ kyc.mobile }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="single-input">
+                                                        <label for="address">Identity Type</label>
+                                                        <input type="text" id="address" placeholder="" value="{{ kyc.identity_type|title }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="single-input">
+                                                        <label for="address">Country</label>
+                                                        <input type="text" id="address" placeholder="" value="{{ kyc.country }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="single-input">
+                                                        <label for="address">State</label>
+                                                        <input type="text" id="address" placeholder="" value="{{ kyc.state }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="single-input">
+                                                        <label for="address">City</label>
+                                                        <input type="text" id="address" placeholder="" value="{{ kyc.city }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="single-input">
+                                                        <label for="fName">{{ kyc.identity_type|title }}</label>
+                                                        
+                                                        {% if kyc.identity_image %}
+                                                            <img src="{{ kyc.identity_image.url }}" alt="" style="width: 300px; height: 100px; border-radius: 10px; object-fit: cover; padding-top: 10px;">
+                                                        {% endif %}
+                                                            
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="single-input">
+                                                        <label for="fName">Signature</label>
+                                                        {{ form.signature }}
+
+                                                        {% if kyc.signature %}
+                                                            <img src="{{ kyc.signature.url }}" alt="" style="width: 300px; height: 100px; border-radius: 10px; object-fit: cover; padding-top: 10px;">
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-md-12">
                                                     <div class="btn-border">
-                                                        <button class="cmn-btn">Account</button>
+                                                        <button class="cmn-btn">Edit KYC</button>
                                                     </div>
                                                 </div>
                                             </div>
