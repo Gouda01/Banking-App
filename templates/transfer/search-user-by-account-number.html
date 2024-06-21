@@ -49,14 +49,17 @@
 
 
                     <form action="#" class="flex-fill" method="POST">
+                        {% csrf_token %}
                         <div class="form-group d-flex align-items-center">
                             <img src="{% static 'assets1/images/icon/search.png' %}" alt="icon">
-                            <input type="text" name="account_number" placeholder="Enter Account Number or ID">
+                            <input type="text" name="account_number" placeholder="Enter Account Number or ID" required>
                             <button type="submit"><i class="fas fa-angle-right"></i></button>
                         </div>
                     </form>
 
                     
+                    {% if query %}
+                                                
                     {% for account in accounts %}
                         <div class="user-select">
                             <div class="single-user">
@@ -66,6 +69,7 @@
                                     </div>
                                     <div class="text-area">
                                         <p>{{ account.user.kyc.full_name|title }}</p>
+                                        <span class="mdr">{{ account.account_number }}</span></br>
                                         <span class="mdr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="773f12051a1619444237101a161e1b5914181a">{{ account.user.email }}</a></span>
                                     </div>
                                 </div>
@@ -75,9 +79,13 @@
                             </div>
                             
                         </div>
+                        {% empty %}
+                        <div>
+                            <h5 class="mt-4 text-danger">Account does not exist</h5>
+                        </div>
                     {% endfor %}
                         
-                    
+                    {% endif %}
 
 
                     <div class="footer-area mt-40">
