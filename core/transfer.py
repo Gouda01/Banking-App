@@ -23,3 +23,8 @@ def search_users_account_number(request):
     }
 
     return render (request, 'transfer/search-user-by-account-number.html', context)
+
+
+@login_required
+def AmountTransfer(request, account_number):
+    return render(request, "transfer/amount-transfer.html")
