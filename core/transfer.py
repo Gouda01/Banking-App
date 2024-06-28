@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.contrib import messages
 
 from account.models import Account
+from .models import Transaction
 
 
 @login_required
@@ -39,3 +40,44 @@ def AmountTransfer(request, account_number):
         'account': account
     }
     return render(request, "transfer/amount-transfer.html", context)
+
+
+@login_required
+def AmountTransferProcess(request, account_number):
+    account = Account.objects.get(account_number=account_number)
+    sender = request.user
+    reciever = account.user
+
+    sender_account = request.user.account
+    # reciever_account = account
+
+    if request.method == "POST":
+        amount = request.POST.get("amound-send")
+        description = request.POST.get("description")
+
+        if sender_account.account_balance > 0 and amount :
+            new_transaction = Transaction.objects.create(
+                user = request.user,
+                amount = amount,
+                description = description,
+                reciever = reciever,
+                sender = sender,
+                sender_account = sender_account,
+                reciever_account = account,
+                status = "processing",
+                transaction_type = "transfer",
+              
+            )
+            new_transaction.save()
+
+            transaction_id = new_transaction.transaction_id
+            return redirect("core:transfer-confirmation", account.account_number, transaction_id)
+        
+        else :
+            messages.warning(request, "Insufficient Fund.")
+            return redirect('core:amount-transfer', account.account_number)
+        
+    else :
+        messages.warning(request, "Error Occured, Try again later.")
+        return redirect('account:account')
+        
