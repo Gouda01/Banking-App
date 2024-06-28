@@ -1,5 +1,6 @@
 {% extends 'partials/dashboard-base.html' %}
 {% load static %}
+{% load humanize %}
 
 
 
@@ -48,23 +49,25 @@
                         <div class="send-banance">
                             <span class="mdr">You Send</span>
                             <div class="input-area">
-                                <input class="xxlr" placeholder="400.00" type="number">
+                                <input class="xxlr" onkeyup="CalculateBalance()" placeholder="{{ request.user.account.account_balance|intcomma }}" type="number" id="amound-send">
                                 <select>
                                     <option value="1">USD</option>
                                     <option value="2">USD</option>
                                     <option value="3">USD</option>
                                 </select>
                             </div>
-                            <p>Available Balance<b>$30,700.00</b></p>
+                            
+                            <p>Available Balance<b>${{ request.user.account.account_balance|intcomma }}</b></p>
+                            <p id="new_balanace"></p>
+                            <p class="text-danger" id="error-div"></p>
                         </div>
                         <ul class="total-fees">
                             <li>Total Fees</li>
                             <li>Free</li>
                         </ul>
                         <ul class="total-fees pay">
-                            <li>
-                                <h5>Total To Pay</h5>
-                            </li>
+                            <li><h5>Total To Pay</h5></li>
+                            <li id="total-to-pay"><h5>Total To Pay</h5></li>
                             <li>
                                 <h5>400.00 USD</h5>
                             </li>
@@ -79,6 +82,27 @@
         </div>
     </section>
     <!-- Dashboard Section end -->
+
+    <!-- Js code for Calculate balance start -->
+    <script>
+        function CalculateBalance() {
+            let available_balance = "{{ request.user.account.account_balance }}"   // Get User current account balance
+            let new_balance = document.getElementById("new_balanace")
+            let sendAmount_input = document.getElementById("amound-send")
+            let sendAmount = sendAmount_input.value
+            let errorDiv = document.getElementById("error-div")
+            let total_to_pay = document.getElementById("total-to-pay")
+
+            let errors = []
+
+            calc = available_balance - sendAmount
+
+            new_balance.innerHTML = `New Balance ${calc}`
+            
+            // console.log(calc);
+        }
+    </script>
+    <!-- Js code for Calculate balance end -->
     
 {% endblock content %}
 

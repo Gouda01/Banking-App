@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Customize :
+    'django.contrib.humanize',
+    
+
     # My Packages :
     'import_export',
     
