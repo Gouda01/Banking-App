@@ -95,11 +95,18 @@
 
             let errors = []
 
-            calc = available_balance - sendAmount
+            new_bal = available_balance - sendAmount
 
-            new_balance.innerHTML = `New Balance ${calc}`
+            new_balance.innerHTML = `New Balance <b> $${new_bal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </b>`
+
+            if (new_bal < 0) {
+                new_balance.style.color = "red"
+                alert("You can only send $" + available_balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+            }else {
+                new_balance.style.color = "black"
+            }
             
-            // console.log(calc);
+            // console.log(new_bal);
         }
     </script>
     <!-- Js code for Calculate balance end -->
