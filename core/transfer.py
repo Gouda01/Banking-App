@@ -81,3 +81,14 @@ def AmountTransferProcess(request, account_number):
         messages.warning(request, "Error Occured, Try again later.")
         return redirect('account:account')
         
+@login_required
+def TransferConfirmation(request, account_number, transaction_id):
+    account = Account.objects.get(account_number=account_number)
+    transaction = Transaction.objects.get(transaction_id=transaction_id)
+    
+    context = {
+        'account':account,
+        'transaction':transaction,
+    }
+    
+    return render (request, 'transfer/transfer-confirmation.html', context)
