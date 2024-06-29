@@ -83,8 +83,12 @@ def AmountTransferProcess(request, account_number):
         
 @login_required
 def TransferConfirmation(request, account_number, transaction_id):
-    account = Account.objects.get(account_number=account_number)
-    transaction = Transaction.objects.get(transaction_id=transaction_id)
+    try:
+        account = Account.objects.get(account_number=account_number)
+        transaction = Transaction.objects.get(transaction_id=transaction_id)
+    except:
+        messages.warning(request, "Transaction does not exist.")
+        return redirect('account:account')
     
     context = {
         'account':account,
