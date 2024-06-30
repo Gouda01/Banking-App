@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, transfer
+from . import views, transfer, transaction
 
 app_name = "core"
 
@@ -15,6 +15,11 @@ urlpatterns = [
     path('transfer-confirmation/<account_number>/<transaction_id>/', transfer.TransferConfirmation, name='transfer-confirmation'),
     path('transfer-process/<account_number>/<transaction_id>/', transfer.TransferProcess, name='transfer-process'),
     path('transfer-complated/<account_number>/<transaction_id>/', transfer.TransferComplated, name='transfer-complated'),
+
+
+
+    # Transactions:
+    path('transactions/', transaction.transaction_lists, name='transactions'),
 
 
     # Request Money :
