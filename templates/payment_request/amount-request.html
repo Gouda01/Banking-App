@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    <form action="{% url 'core:amount-request' account.account_number %}" method="post">
+                    <form action="{% url 'core:amount-request-process' account.account_number %}" method="post">
                         {% csrf_token %}
 
                         <div class="send-banance">

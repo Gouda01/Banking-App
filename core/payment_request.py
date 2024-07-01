@@ -59,9 +59,6 @@ def AmountRequestProcess(request, account_number):
 
             sender = sender,
             reciever = reciever,
-            
-            reciever_account = reciever,
-            sender_account = sender,
 
             sender_account = sender_account,
             reciever_account = reciever_account,
