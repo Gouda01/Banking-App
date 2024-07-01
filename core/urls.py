@@ -26,6 +26,7 @@ urlpatterns = [
     # Payment Request :
     path('request-search-account/', payment_request.SearchUsersRequest, name='request-search-account'),
     path('amount-request/<account_number>/', payment_request.AmoundRequest, name='amount-request'),
+    path('amount-request-process/<account_number>/', payment_request.AmountRequestProcess, name='amount-request-process'),
 
 
     # Add debit Card :

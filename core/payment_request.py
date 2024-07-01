@@ -38,7 +38,7 @@ def AmoundRequest(request, account_number):
 
 
 @login_required
-def PaymentRequestProcess(request, account_number):
+def AmountRequestProcess(request, account_number):
     account = Account.objects.get(account_number=account_number)
 
     sender = request.user
