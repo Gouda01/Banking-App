@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, transfer, transaction
+from . import views, transfer, transaction, payment_request
 
 app_name = "core"
 
@@ -23,7 +23,8 @@ urlpatterns = [
     path('transaction-detail/<transaction_id>', transaction.transaction_detail, name='transaction-detail'),
 
 
-    # Request Money :
+    # Payment Request :
+    path('request-search-account/', payment_request.SearchUsersRequest, name='request-search-account'),
 
 
     # Add debit Card :
