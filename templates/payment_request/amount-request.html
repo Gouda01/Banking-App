@@ -1,0 +1,115 @@
+{% extends 'partials/dashboard-base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+
+
+{% block content %}
+
+    <!-- Dashboard Section start -->
+    <section class="dashboard-section body-collapse pay step step-2">
+        <div class="overlay pt-120">
+            <div class="container-fruid">
+                <div class="main-content">
+                    <div class="head-area d-flex align-items-center justify-content-between">
+                        <h4>Request a Payment</h4>
+                        <div class="icon-area">
+                            <img src="{% static 'assets1/images/icon/support-icon.png' %}" alt="icon">
+                        </div>
+                    </div>
+                    <div class="choose-recipient">
+                        <div class="step-area">
+                            <span class="mdr">Step 2 of 3</span>
+                            <h5>Set Amount of request</h5>
+                        </div>
+                        <div class="user-select">
+                            <div class="single-user">
+                                <div class="left d-flex align-items-center">
+                                    <div class="img-area">
+                                        <img src="{{ account.user.kyc.image.url }}" alt="image" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                                    </div>
+                                    <div class="text-area">
+                                        <p>{{ account.user.kyc.full_name|title }}</p>
+                                        <span class="mdr">{{ account.account_number }}</span></br>
+                                        <span class="mdr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="773f12051a1619444237101a161e1b5914181a">{{ account.user.email }}</a></span>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    
+                                    <a href="{% url 'core:search-account' %}">
+                                        <i class="icon-h-edit"></i>
+                                        Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="{% url 'core:amount-request' account.account_number %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="send-banance">
+                            <span class="mdr">You Request</span>
+                            <div class="input-area">
+                                <input class="xxlr" placeholder="Enter amount request" type="number" id="amound-send" name="amound-request" required>
+                                <select>
+                                    <option value="1">USD</option>
+                                    <option value="2">USD</option>
+                                    <option value="3">USD</option>
+                                </select>
+                            </div>
+                            
+                            
+                            </br>
+                            <span class="mdr">Payment description</span>
+                            <div class="input-area">
+                                <input class="xxlr" placeholder="Enter request amount description here ..." type="text" name="description">
+                            </div>
+
+                        </div>                        
+
+                        
+                        <div class="footer-area mt-40">
+                            <a href="{% url 'core:request-search-account' %}">Previous Step</a>
+                            <button type="submit" style="padding: 10px 30px; border-radius: 10px;" class="btn btn-success" href="pay-step-3.html" class="active">Next</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Dashboard Section end -->
+
+    <!-- Js code for Calculate balance start -->
+    <script>
+        function CalculateBalance() {
+            let available_balance = "{{ request.user.account.account_balance }}"   // Get User current account balance
+            let new_balance = document.getElementById("new_balanace")
+            let sendAmount_input = document.getElementById("amound-send")
+            let sendAmount = sendAmount_input.value
+            let errorDiv = document.getElementById("error-div")
+            let total_to_pay = document.getElementById("total-to-pay")
+
+            let errors = []
+
+            new_bal = available_balance - sendAmount
+
+            new_balance.innerHTML = `New Balance <b> $${new_bal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </b>`
+            total_to_pay.innerHTML = `$${sendAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+
+            if (new_bal < 0) {
+                new_balance.style.color = "red"
+                alert("You can only send $" + available_balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+            }else {
+                new_balance.style.color = "black"
+            }
+            
+            // console.log(new_bal);
+        }
+    </script>
+    <!-- Js code for Calculate balance end -->
+    
+{% endblock content %}
+
+
+    
