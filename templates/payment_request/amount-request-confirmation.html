@@ -130,13 +130,12 @@
                                         <h4>Confirm Transfer!</h4>
                                         <p>We have sent a verification code on your phone + Number +44831***932. Please enter verification code below</p>
                                         
-                                        <form action="" method="post">
+                                        <form action="{% url 'core:amount-request-final-process' account.account_number transaction.transaction_id %}" method="post">
                                             {% csrf_token %}
 
                                             <div class="userInput">
                                                 <input name="pin-number" minlength="4" maxlength="4" type="text" required>
                                             </div>
-                                            <a href="javascript:void(0)">Don’t receive a code?</a>
                                             <button type="submit" class="mt-60 confirm">Confirm</button>
                                         </form>
 

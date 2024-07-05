@@ -9,7 +9,7 @@ TRANSACTION_TYPE = (
     ("recieved", "Recieved"),
     ("withdraw", "Withdraw"),
     ("refund", "Refund"),
-    ("request", "Request"),
+    ("request", "Payment Request"),
     ("none", "None"),
 )
 
@@ -18,7 +18,9 @@ TRANSACTION_STATUS = (
     ("completed", "Completed"),
     ("pending", "Pending"),
     ("processing", "Processing"),
-    ("requested", "Requested"),
+    ("request_sent", "Request sent"),
+    ("request_settled", "Request settled"),
+    ("request_processing", "Request processing"),
 )
 
 
